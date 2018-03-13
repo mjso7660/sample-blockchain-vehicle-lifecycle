@@ -157,3 +157,19 @@ function scrapVehicle(scrapVehicle) {
             return assetRegistry.update(vehicle);
         });
 }
+function ApplicationForVehicleRegistrationCertificate(application) {
+    console.log('ApplicationForVehicleRegistrationCertificate');
+	var vehicleDetails = application.vehicleDetails;
+ 	var keeper = application.keeper;
+    var NS = 'org.acme.vehicle.lifecycle';
+    var NS_D = 'org.vda';
+ 	
+    return getAssetRegistry(NS_D + '.Vehicle')
+    	.then(function(registry) {
+        	return registry.get(vehicleDetails.vin)
+            	.then(function(vehicle) {
+              		vehicle.vehicleDetails = vehicleDetails;
+                    return registry.update(vehicle);
+            	});
+        });
+}
