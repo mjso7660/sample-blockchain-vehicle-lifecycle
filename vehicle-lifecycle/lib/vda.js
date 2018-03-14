@@ -157,6 +157,12 @@ function scrapVehicle(scrapVehicle) {
             return assetRegistry.update(vehicle);
         });
 }
+
+/**
+ * Apply for registration certificate
+ * @param {org.vda.ApplicationForVehicleRegistrationCertificate} registerVehicle - the Registration transaction
+ * @transaction
+ */
 function ApplicationForVehicleRegistrationCertificate(application) {
     console.log('ApplicationForVehicleRegistrationCertificate');
 	var vehicleDetails = application.vehicleDetails;
