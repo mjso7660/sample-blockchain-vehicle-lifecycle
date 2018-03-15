@@ -179,3 +179,22 @@ function ApplicationForVehicleRegistrationCertificate(application) {
             	});
         });
 }
+
+/**
+ * UpdateSuspicious
+ * @param {org.vda.UpdateSuspicious} UpdateSuspicious - the update suspicious transaction
+ * @transaction
+ */
+function UpdateSuspicious(update) {
+    console.log('UpdateSuspicious');
+	var message = update.message;
+  	var vehicle = update.vehicle;
+    var NS_D = 'org.vda';
+ 	
+    return getAssetRegistry(NS_D + '.Vehicle')
+    	.then(function(registry) {
+        	vehicle.suspiciousMessage = message;
+        	return registry.update(vehicle);
+            	
+        });
+}
