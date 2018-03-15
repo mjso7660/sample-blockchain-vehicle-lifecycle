@@ -157,3 +157,44 @@ function scrapVehicle(scrapVehicle) {
             return assetRegistry.update(vehicle);
         });
 }
+
+/**
+ * Apply for registration certificate
+ * @param {org.vda.ApplicationForVehicleRegistrationCertificate} registerVehicle - the Registration transaction
+ * @transaction
+ */
+function ApplicationForVehicleRegistrationCertificate(application) {
+    console.log('ApplicationForVehicleRegistrationCertificate');
+	var vehicleDetails = application.vehicleDetails;
+ 	var keeper = application.keeper;
+    var NS = 'org.acme.vehicle.lifecycle';
+    var NS_D = 'org.vda';
+ 	
+    return getAssetRegistry(NS_D + '.Vehicle')
+    	.then(function(registry) {
+        	return registry.get(vehicleDetails.vin)
+            	.then(function(vehicle) {
+              		vehicle.vehicleDetails = vehicleDetails;
+                    return registry.update(vehicle);
+            	});
+        });
+}
+
+/**
+ * UpdateSuspicious
+ * @param {org.vda.UpdateSuspicious} UpdateSuspicious - the update suspicious transaction
+ * @transaction
+ */
+function UpdateSuspicious(update) {
+    console.log('UpdateSuspicious');
+	var message = update.message;
+  	var vehicle = update.vehicle;
+    var NS_D = 'org.vda';
+ 	
+    return getAssetRegistry(NS_D + '.Vehicle')
+    	.then(function(registry) {
+        	vehicle.suspiciousMessage = message;
+        	return registry.update(vehicle);
+            	
+        });
+}
